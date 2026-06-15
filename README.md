@@ -1,196 +1,157 @@
 # Customer Shopping Behavior Analysis
+### A Data Analytics Portfolio Project | Python • SQL Server • Power BI
+
+---
 
 ## Overview
 
-This project analyzes customer shopping behavior using transactional retail data. The objective is to uncover customer purchasing patterns, spending behavior, product preferences, and subscription trends through Python, SQL, and Power BI.
+How do customers shop, and what can a business do about it?
 
-The project follows a complete data analytics workflow, including data cleaning, exploratory data analysis (EDA), database analysis, and dashboard development.
+This project analyses 3,900 customer transactions to uncover patterns in buying behavior, product performance, shipping preferences, and customer loyalty. The goal is to help businesses make smarter marketing and operational decisions based on real data — not guesswork.
 
 ---
 
 ## Dataset
 
-The dataset contains customer shopping transactions with demographic, purchasing, and behavioral information.
-
-### Dataset Summary
-
-* **Rows:** 3,900
-* **Columns:** 18
-* **Key Features:**
-
-  * Customer demographics (Age, Gender, Location)
-  * Purchase information (Item Purchased, Category, Purchase Amount)
-  * Customer behavior (Frequency of Purchases, Previous Purchases)
-  * Marketing variables (Discount Applied, Promo Code Used)
-  * Subscription status
-  * Review ratings and shipping preferences
+- **Source:** Customer Shopping Behavior Dataset (Kaggle)
+- **Rows:** 3,900 transactions
+- **Format:** CSV/Excel
+- **Key columns:** Age, Gender, Item Purchased, Category, Purchase Amount, Review Rating, Subscription Status, Discount Applied, Shipping Type, Frequency of Purchases
 
 ---
 
-## Tools & Technologies
+## Tools Used
 
-### Python
-
-* Pandas
-* NumPy
-* Matplotlib
-* Seaborn
-
-### Database
-
-* Microsoft SQL Server (MSSQL)
-
-### Visualization
-
-* Power BI
-
-### Development Environment
-
-* Jupyter Notebook
-* SQL Server Management Studio (SSMS)
+| Tool | Purpose |
+|---|---|
+| Python (Pandas, NumPy) | Data loading, cleaning, feature engineering |
+| SQL Server (SSMS) | Business queries and data exploration |
+| SQLAlchemy + PyODBC | Python to SQL Server connection |
+| Power BI | Dashboard and visualisation |
 
 ---
 
-## Project Workflow
+## Steps
 
-### 1. Data Loading
-
-* Imported dataset into Python using Pandas.
-* Performed initial exploration using:
-
-  * `df.info()`
-  * `df.describe()`
-  * Missing value checks
+### 1. Data Loading & Inspection
+- Loaded dataset into Python using Pandas
+- Inspected shape, data types, null values, and duplicates
+- Identified columns needing transformation
 
 ### 2. Data Cleaning
+- Handled missing values using median imputation per product category for Review Rating
+- Standardised categorical columns
+- Validated data types across all columns
 
-* Identified and handled missing values.
-* Imputed missing review ratings using category-level median values.
-* Standardized column names using snake_case.
-* Created additional analytical features such as:
+### 3. Feature Engineering
+- Created `age_group` column by binning ages into: Young Adults, Adults, Middle Aged, Senior
+- Created `frequency_of_purchases_days` to convert purchase frequency labels into numeric values
 
-  * Age Groups
-  * Purchase Frequency Categories
+### 4. Database Integration
+- Connected Python to Microsoft SQL Server using SQLAlchemy and PyODBC
+- Pushed cleaned dataframe into SQL Server database (`customer_behavior`)
+- Queried data directly from SQL Server for business analysis
 
-### 3. Exploratory Data Analysis (EDA)
+### 5. SQL Business Analysis
+Wrote 10 business queries to answer key questions:
 
-Performed analysis to understand:
+| # | Question | Finding |
+|---|---|---|
+| 1 | Which gender buys more? | Males purchase more than females |
+| 2 | Do discount buyers spend more? | Yes — discount buyers transact more |
+| 3 | Top 5 rated products? | Gloves (3.86), Sandals (3.84), Boots (3.82), Hat (3.80), Skirt (3.78) |
+| 4 | Which shipping type generates most revenue? | Express shipping leads in revenue |
+| 5 | Do subscribers buy more? | No — non-subscribers purchase more |
+| 6 | Top 5 discounted products? | Socks, Blouse, Sandals, Skirt, Handbag |
+| 7 | How loyal are customers? | Business has strong loyal customer base |
+| 8 | Who repeat-purchases more? | Non-subscribers repeat more than subscribers |
+| 9 | Which age group buys most? | Young Adults lead in purchases |
+| 10 | Revenue by customer segment? | Analysed across age, gender, and subscription status |
 
-* Customer demographics
-* Spending patterns
-* Product popularity
-* Subscription behavior
-* Purchase frequency trends
-* Rating distributions
-
-### 4. SQL Analysis
-
-Loaded the cleaned dataset into Microsoft SQL Server and answered key business questions:
-
-* Revenue by gender
-* High-spending discount users
-* Top-rated products
-* Shipping type comparison
-* Subscribers vs non-subscribers analysis
-* Discount-dependent products
-* Customer segmentation
-* Top products by category
-* Repeat buyer analysis
-* Revenue by age group
-
-### 5. Power BI Dashboard
-
-Created an interactive dashboard to visualize:
-
-* Total Revenue
-* Customer Segments
-* Revenue by Gender
-* Revenue by Age Group
-* Subscription Analysis
-* Product Performance
-* Shipping Preferences
-* Customer Purchase Trends
+### 6. Power BI Dashboard
+- Connected Power BI directly to SQL Server database
+- Built interactive single-page dashboard with slicers and charts
 
 ---
 
-## Key Insights
+## Dashboard
 
-* Certain age groups generated the highest revenue.
-* Subscribers showed stronger purchasing behavior than non-subscribers.
-* A small group of products contributed significantly to sales performance.
-* Shipping preferences influenced customer purchasing decisions.
-* Repeat customers represented a valuable segment for retention strategies.
+**KPI Cards:**
+- Total Customers: 3,900
+- Average Review Rating: 3.75
+- Average Revenue: $59.8M
+
+**Visuals:**
+- Pie chart — Subscribers vs Non-subscribers
+- Clustered bar — Revenue by Category
+- Clustered bar — Sales by Category
+- Clustered column — Revenue by Age Group
+- Clustered column — Sales by Age Group
+
+**Slicers:**
+- Subscription Status
+- Gender
+- Category
+- Shipping Type
 
 ---
 
-## Business Recommendations
+## Key Results & Recommendations
 
-* Increase subscription incentives and exclusive offers.
-* Develop customer loyalty programs for repeat buyers.
-* Optimize discount strategies to balance revenue and profitability.
-* Promote top-performing products through targeted campaigns.
-* Focus marketing efforts on high-value customer segments.
+1. **Target male customers** — they drive more purchases and should be prioritised in campaigns
+2. **Expand discount strategy** — discount buyers transact more frequently; a structured promo calendar could increase revenue
+3. **Invest in Express shipping** — it generates the most revenue; consider making it the default or promoting it as a value-add
+4. **Re-evaluate subscription model** — non-subscribers outperform subscribers in both volume and repeat purchases; promote exclusive benefits for subscribers
+5. **Focus on Young Adults** — they are the highest-spending age group and should anchor your marketing strategy
+6. **Protect top-rated products** — Gloves, Sandals, and Boots have the highest ratings; ensure consistent stock and visibility
+6. **Customer Loyalty Programs** – Reward repeat buyers to move them into Loyal customers
+
 
 ---
 
 ## How to Run
 
-### Python Analysis
-
-1. Clone the repository.
-2. Install required libraries:
-
+### Python
 ```bash
-pip install pandas numpy matplotlib seaborn pyodbc
+# Install dependencies
+pip install pandas numpy sqlalchemy pyodbc openpyxl
+
+# Run the notebook
+jupyter notebook Customer_Shopping_Behavior_Analysis.ipynb
 ```
 
-3. Run the Jupyter Notebook:
+### SQL
+- Open SQL Server Management Studio (SSMS)
+- Connect to your server
+- Run queries from `queries.sql`
 
-```bash
-jupyter notebook
-```
-
-### SQL Analysis
-
-1. Import the cleaned dataset into Microsoft SQL Server.
-2. Execute the SQL scripts provided in the `sql_queries` folder.
-
-### Power BI Dashboard
-
-1. Open the `.pbix` file in Power BI Desktop.
-2. Refresh the data source if required.
-3. Explore the interactive dashboard.
+### Power BI
+- Open `Customer_Shopping_Dashboard.pbix`
+- Update the SQL Server connection to your server name
+- Refresh data
 
 ---
 
 ## Project Structure
 
-```text
-Customer-Shopping-Behavior-Analysis/
+```
+customer-shopping-behavior-analysis/
 │
-├── data/
-│   ├── raw_data.csv
-│   └── cleaned_data.csv
-│
-├── notebooks/
-│   └── customer_behavior_analysis.ipynb
-│
-├── sql_queries/
-│   └── analysis_queries.sql
-│
-├── powerbi/
-│   └── customer_dashboard.pbix
-│
-├── images/
-│   └── dashboard_screenshot.png
-│
-└── README.md
+├── Customer_Shopping_Behavior_Analysis.ipynb  # Python notebook
+├── queries.sql                                 # All 10 SQL queries
+├── Customer_Shopping_Dashboard.pbix           # Power BI file
+├── customer_shopping_behavior.xlsx            # Raw dataset
+├── Report.docx                                # Full analysis report
+└── README.md                                  # This file
 ```
 
 ---
 
 ## Author
 
-**Dr. Ifunanya Nze**
-Data Analyst | Veterinarian | Public Health Professional
+**Dr. Ifunanya Grace Nze**
+Veterinarian | Data Analyst | AI & Automation Consultant
 
+> *"Turning messy data into business decisions."*
+
+---
